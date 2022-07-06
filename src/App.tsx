@@ -1,31 +1,43 @@
 import { useState } from "react";
-import Modal from "react-modal";
+import EditedPostModal from "./components/EditPostModal";
 import { Header } from "./components/Header";
-import BasicModal from "./components/ModalMaterial";
-import { NewPostModal } from "./components/NewPostModal";
+import ListCommentModal from "./components/ListCommentsModal";
+import NewPostModal from "./components/NewPostModal";
+
 import { Summary } from "./components/Summary";
 import { GlobalStyle } from "./styles/global";
 
-//infelizmente não funcinou
-// 
-Modal.setAppElement("#root");
 
 export function App() {
-  const [isNewPostModalOpen, setIsNewPostModalOpen] = useState(false);
+  const [newPostModalOpen, setNewPostModalOpen] = useState(false);
+  const handleOpenNewPostModal = () => setNewPostModalOpen(true);
+  const handleCloseNewPostModal = () => setNewPostModalOpen(false);
 
-  function handleOpenPostModal() {
-    setIsNewPostModalOpen(true);
-  }
-  function handleClosePostModal() {
-    setIsNewPostModalOpen(false);
-  }
+  const [editedPostModalOpen, setEditedPostModalOpen] = useState(false);
+  const [postId, setPostId] = useState("");
+  const handleOpenEditedPostModal = () => setEditedPostModalOpen(true);
+  const handleCloseEditedPostModal = () => setEditedPostModalOpen(false);
+  const handleEditedPostModal = (id: string) => {
+    setPostId(id);
+    handleOpenEditedPostModal();
+  };
+
+  const [newcommentModalOpen, setNewcommentModalOpen] = useState(false);
+  const handleOpenNewCommentModal = () => setNewcommentModalOpen(true);
+  const handleCloseNewCommentModal = () => setNewcommentModalOpen(false);
+  const handleCommentModal = (id: string) => {
+    setPostId(id);
+    handleOpenEditedPostModal();
+  };
+
   return (
     <>
-      <Header onOpenNewPostModal={handleOpenPostModal} />
-      <Summary />
+      <Header onOpenNewPostModal={handleOpenNewPostModal} />
+      <Summary openEditModal={handleEditedPostModal} openCommentModal={handleCommentModal} />
 
-      <NewPostModal isOpen={isNewPostModalOpen} onRequestClose={handleClosePostModal} />
-      <BasicModal />
+      <ListCommentModal open={newcommentModalOpen} handleClose={handleCloseNewCommentModal} id={postId}/>
+      <EditedPostModal open={editedPostModalOpen} handleClose={handleCloseEditedPostModal} id={postId} />
+      <NewPostModal open={newPostModalOpen} handleClose={handleCloseNewPostModal} />
       <GlobalStyle />
     </>
   );
