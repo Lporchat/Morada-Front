@@ -1,10 +1,11 @@
-import { Container } from "./styles";
+import { Container, Links } from "./styles";
 import commentImg from "../../assets/comment.svg"
 import likeImg from "../../assets/like.svg"
 import editImg from "../../assets/edit.svg"
 import deleteImg from "../../assets/delete.svg"
 import { api } from "../../services/api";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface Iprops {
   id: string;
@@ -12,9 +13,7 @@ interface Iprops {
   body: string;
   like: number;
   onRequestEditedOpen: (id: string) => void,
-  onRequestCommentOpen: (id: string) => void,
 }
-
 
 export function Card({ id, nome, body, like, onRequestEditedOpen }: Iprops) {
   const [deslike, setDeslike] = useState(false);
@@ -60,9 +59,7 @@ export function Card({ id, nome, body, like, onRequestEditedOpen }: Iprops) {
     onRequestEditedOpen(id);
   }
 
-  function commentPost() {
-    onRequestEditedOpen(id);
-  }
+  const router = "/comment/" + id;
 
   return (
     <Container>
@@ -75,9 +72,11 @@ export function Card({ id, nome, body, like, onRequestEditedOpen }: Iprops) {
         <button onClick={deslike ? deslikePost : likePost}>
           <img src={likeImg} alt="imagem de like" />
         </button>
-        <button onClick={commentPost}>
-          <img src={commentImg} alt="imagem de comentarios" />
-        </button>
+        <Links>
+          <Link to={router}>
+            <img src={commentImg} alt="imagem de comentarios" />
+          </Link>
+        </Links>
         <button onClick={editedPost}>
           <img src={editImg} alt="imagem de edição" />
         </button>

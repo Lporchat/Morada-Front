@@ -1,7 +1,6 @@
 import { useState } from "react";
 import EditedPostModal from "./components/EditPostModal";
 import { Header } from "./components/Header";
-import ListCommentModal from "./components/ListCommentsModal";
 import NewPostModal from "./components/NewPostModal";
 
 import { Summary } from "./components/Summary";
@@ -22,19 +21,13 @@ export function Home() {
     handleOpenEditedPostModal();
   };
 
-  const [newcommentModalOpen, setNewcommentModalOpen] = useState(false);
-  const handleOpenNewCommentModal = () => setNewcommentModalOpen(true);
-  const handleCloseNewCommentModal = () => setNewcommentModalOpen(false);
-  const handleCommentModal = (id: string) => {
-    setPostId(id);
-    handleOpenEditedPostModal();
-  };
+
 
   return (
     <>
       <Header onOpenNewPostModal={handleOpenNewPostModal} />
-      <Summary openEditModal={handleEditedPostModal} openCommentModal={handleCommentModal} />
-      <ListCommentModal open={newcommentModalOpen} handleClose={handleCloseNewCommentModal} id={postId} />
+      <Summary openEditModal={handleEditedPostModal} />
+
       <EditedPostModal open={editedPostModalOpen} handleClose={handleCloseEditedPostModal} id={postId} />
       <NewPostModal open={newPostModalOpen} handleClose={handleCloseNewPostModal} />
     </>

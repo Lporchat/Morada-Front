@@ -6,10 +6,10 @@ import { Container } from "./styles";
 
 interface SumarryProps {
   openEditModal: (id: string) => void;
-  openCommentModal: (id: string) => void;
+
 }
 
-export function Summary({ openEditModal, openCommentModal }: SumarryProps) {
+export function Summary({ openEditModal,  }: SumarryProps) {
   const [posts, setposts] = useState([]);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export function Summary({ openEditModal, openCommentModal }: SumarryProps) {
       <Container>
         {posts.map((posts) => {
           return <Card key={posts["id"]} id={posts["id"]} body={posts["body"]} nome={posts["name"]} like={posts["likes"]} onRequestEditedOpen={openEditModal}
-           onRequestCommentOpen={openCommentModal} />;
+            />;
         })}
 
       </Container>

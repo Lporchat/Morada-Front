@@ -28,3 +28,9 @@ export const Container = styled.div`
     max-width: 1.5rem;
   }
 `;
+
+export const Links = styled.div`
+  margin-top: 1.5rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+`;
