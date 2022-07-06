@@ -56,7 +56,6 @@ export function Card({ id, nome, like, onRequestOpen }: Iprops) {
   }
 
   function editedPost() {
-
     onRequestOpen(id);
   }
 

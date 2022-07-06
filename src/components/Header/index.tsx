@@ -1,4 +1,5 @@
 
+import { Button } from "@mui/material";
 import logoImg from "../../assets/logo.png";
 import { Container, Content } from "./styles";
 
@@ -11,10 +12,10 @@ export function Header({ onOpenNewPostModal }: HeaderProps) {
     <Container>
       <Content>
         <img src={logoImg} alt="Grupo Morada" />
-        <button type="button" onClick={onOpenNewPostModal}>
-          Novo Post
-        </button>
+        <Button onClick={onOpenNewPostModal} variant="contained" color="primary">Criar novo Post</Button>
       </Content>
     </Container>
   );
 }
+
+

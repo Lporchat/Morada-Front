@@ -20,9 +20,8 @@ export function NewPostModal({ isOpen, onRequestClose }: NewPostModalProps) {
       url: '/post/create',
       data: {
         name: nome_post,
-        body: "teste da add do body"
       }
-    }).then(response => { console.log(response) });
+    }).then();
 
     setNome_post('');
     onRequestClose();

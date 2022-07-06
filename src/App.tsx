@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Modal from "react-modal";
 import { Header } from "./components/Header";
+import BasicModal from "./components/ModalMaterial";
 import { NewPostModal } from "./components/NewPostModal";
 import { Summary } from "./components/Summary";
 import { GlobalStyle } from "./styles/global";
@@ -24,6 +25,7 @@ export function App() {
       <Summary />
 
       <NewPostModal isOpen={isNewPostModalOpen} onRequestClose={handleClosePostModal} />
+      <BasicModal />
       <GlobalStyle />
     </>
   );
