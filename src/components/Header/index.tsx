@@ -1,5 +1,4 @@
-import { useState } from "react";
-import Modal from "react-modal";
+
 import logoImg from "../../assets/logo.png";
 import { Container, Content } from "./styles";
 

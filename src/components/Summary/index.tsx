@@ -11,7 +11,7 @@ export function Summary() {
   return (
     <Container>
       {posts.map((posts) => {
-        return <Card nome={posts["name"]} like={posts["likes"]} />;
+        return <Card key={posts["id"]} id={posts["id"]} nome={posts["name"]} like={posts["likes"]} />;
       })}
     </Container>
   );

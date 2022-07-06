@@ -1,10 +1,13 @@
 import { useState } from "react";
 import Modal from "react-modal";
 import { Header } from "./components/Header";
+import { NewPostModal } from "./components/NewPostModal";
 import { Summary } from "./components/Summary";
 import { GlobalStyle } from "./styles/global";
 
-Modal.setAppElement("root");
+//infelizmente não funcinou
+// 
+Modal.setAppElement("#root");
 
 export function App() {
   const [isNewPostModalOpen, setIsNewPostModalOpen] = useState(false);
@@ -20,7 +23,7 @@ export function App() {
       <Header onOpenNewPostModal={handleOpenPostModal} />
       <Summary />
 
-
+      <NewPostModal isOpen={isNewPostModalOpen} onRequestClose={handleClosePostModal} />
       <GlobalStyle />
     </>
   );

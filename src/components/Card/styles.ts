@@ -18,4 +18,13 @@ export const Container = styled.div`
     display: block;
     margin-bottom: 2rem;
   }
+  button {
+    margin-top: 1rem;
+    width: 100%;
+    background: #fff;
+    border: 0;
+  }
+  img {
+    max-width: 1.5rem;
+  }
 `;
