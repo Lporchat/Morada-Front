@@ -4,21 +4,21 @@ import Modal from "react-modal";
 import { Container, Title } from "./styles";
 import { api } from "../../services/api";
 
-interface NewPostModalProps {
+interface EditPostModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
+  id: string;
 }
-export function NewPostModal({ isOpen, onRequestClose }: NewPostModalProps) {
+export function EditPostModal({ isOpen, onRequestClose,  id }: EditPostModalProps) {
   const [nome_post, setNome_post] = useState("");
 
-  async function handleCreateNewPost(event: FormEvent) {
+  async function handleCreateEditPost(event: FormEvent) {
     event.preventDefault();
-
-
     api({
-      method: 'post',
-      url: '/post/create',
+      method: 'put',
+      url: '/post',
       data: {
+        id: id,
         name: nome_post,
       }
     }).then();
@@ -27,33 +27,32 @@ export function NewPostModal({ isOpen, onRequestClose }: NewPostModalProps) {
     onRequestClose();
   }
 
-
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      overlayClassName="react-modal-overlay"
-      className="react-modal-content"
+  <Modal
+    isOpen={isOpen}
+    onRequestClose={onRequestClose}
+    overlayClassName="react-modal-overlay"
+    className="react-modal-content"
+  >
+    <button
+      type="button"
+      onClick={onRequestClose}
+      className="react-modal-close"
     >
-      <button
-        type="button"
-        onClick={onRequestClose}
-        className="react-modal-close"
-      >
-        <img src={closeImg} alt="Close" />
-      </button>
-      <Title>Cadastra post</Title>
+      <img src={closeImg} alt="Close" />
+    </button>
+    <Title>Editar post</Title>
 
-      <Container onSubmit={handleCreateNewPost}>
-        <input
-          placeholder="Nome do post"
-          value={nome_post}
-          onChange={(event) => setNome_post(event.target.value)}
-        ></input>
-        <button type="submit">Cadastrar</button>
-      </Container>
+    <Container onSubmit={handleCreateEditPost}>
+      <input
+        placeholder="Nome do post"
+        value={nome_post}
+        onChange={(event) => setNome_post(event.target.value)}
+      ></input>
+      <button type="submit">Atualizar</button>
+    </Container>
 
-    </Modal>
+  </Modal>
   );
 }
 

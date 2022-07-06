@@ -5,15 +5,17 @@ import editImg from "../../assets/edit.svg"
 import deleteImg from "../../assets/delete.svg"
 import { api } from "../../services/api";
 import { useState } from "react";
+import { EditPostModal } from "../EditPostModal";
 
 interface Iprops {
   id: string;
   nome: string;
   like: number;
+  onRequestOpen: (id: string) => void,
 }
 
 
-export function Card({ id, nome, like }: Iprops) {
+export function Card({ id, nome, like, onRequestOpen }: Iprops) {
   const [deslike, setDeslike] = useState(false);
   const [likes, setLikes] = useState(like);
 
@@ -53,6 +55,11 @@ export function Card({ id, nome, like }: Iprops) {
     }).then();
   }
 
+  function editedPost() {
+
+    onRequestOpen(id);
+  }
+
   return (
     <Container>
       <strong>{nome}</strong>
@@ -67,14 +74,13 @@ export function Card({ id, nome, like }: Iprops) {
         <button onClick={() => console.log(id + "comentarios")}>
           <img src={commentImg} alt="imagem de comentarios" />
         </button>
-        <button onClick={() => console.log(id + "editar")}>
+        <button onClick={editedPost}>
           <img src={editImg} alt="imagem de edição" />
         </button>
         <button onClick={deletePost}>
           <img src={deleteImg} alt="imagem de deleção" />
         </button>
       </div>
-
     </Container >
   );
 }
