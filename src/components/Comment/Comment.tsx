@@ -6,10 +6,9 @@ import { api } from "../../services/api";
 
 export function Comment() {
   const { token } = useParams<{ token?: string }>();
+  const counter = 0;
 
   const [comment, setComment] = useState([]);
-
-  const [posts, setposts] = useState([]);
   useEffect(() => {
     api({
       method: 'post',
@@ -17,9 +16,9 @@ export function Comment() {
       data: {
         post_id: token
       }
-    }).then((reponse) => setComment(reponse.data)).then();
+    }).then((reponse) => setComment(reponse.data));
   }, []);
-  console.log(comment);
+
   return (
     <>
       <h1>{token}</h1>
