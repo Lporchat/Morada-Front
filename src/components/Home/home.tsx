@@ -1,9 +1,9 @@
 import { useState } from "react";
-import EditedPostModal from "./components/EditPostModal";
-import { Header } from "./components/Header";
-import NewPostModal from "./components/NewPostModal";
+import EditedPostModal from "../EditPostModal";
+import { Header } from "../Header";
+import NewPostModal from "../NewPostModal";
 
-import { Summary } from "./components/Summary";
+import { Summary } from "../Summary";
 
 
 
@@ -25,7 +25,7 @@ export function Home() {
 
   return (
     <>
-      <Header onOpenNewPostModal={handleOpenNewPostModal} />
+      <Header onOpenNewPostModal={handleOpenNewPostModal} title={"Criar novo post"} />
       <Summary openEditModal={handleEditedPostModal} />
 
       <EditedPostModal open={editedPostModalOpen} handleClose={handleCloseEditedPostModal} id={postId} />

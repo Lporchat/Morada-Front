@@ -5,14 +5,15 @@ import { Container, Content } from "./styles";
 
 interface HeaderProps {
   onOpenNewPostModal: () => void;
+  title: string;
 }
 
-export function Header({ onOpenNewPostModal }: HeaderProps) {
+export function Header({ onOpenNewPostModal, title }: HeaderProps) {
   return (
     <Container>
       <Content>
         <img src={logoImg} alt="Grupo Morada" />
-        <Button onClick={onOpenNewPostModal} variant="contained" color="primary">Criar novo Post</Button>
+        <Button onClick={onOpenNewPostModal} variant="contained" color="primary">{title}</Button>
       </Content>
     </Container>
   );

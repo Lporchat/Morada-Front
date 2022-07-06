@@ -1,12 +1,16 @@
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../../services/api";
+import { Header } from "../Header";
+import NewCommentModal from "../NewCommentModal";
 
 
 export function Comment() {
   const { token } = useParams<{ token?: string }>();
-  const counter = 0;
+  const [newCommentModalOpen, setNewCommentModalOpen] = useState(false);
+  const handleOpenNewCommentModal = () => setNewCommentModalOpen(true);
+  const handleCloseNewCommentModal = () => setNewCommentModalOpen(false);
 
   const [comment, setComment] = useState([]);
   useEffect(() => {
@@ -21,7 +25,8 @@ export function Comment() {
 
   return (
     <>
-      <h1>{token}</h1>
+      <Header onOpenNewPostModal={handleOpenNewCommentModal} title={"Criar novo Comentario"} />
+      <NewCommentModal open={newCommentModalOpen} handleClose={handleCloseNewCommentModal} />
     </>
 
   );
