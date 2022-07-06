@@ -24,8 +24,6 @@ export default function ListCommentModal({ open, handleClose, id }: modalProps) 
   const [nome_post, setNome_post] = useState("");
   const [body_post, setBody_post] = useState("");
 
-  console.log(id);
-
   async function handleCreateNewPost(event: FormEvent) {
     event.preventDefault();
 
