@@ -1,34 +1,35 @@
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { api } from "../../services/api";
+import EditedCommentModal from "../EditCommentModal";
 import { Header } from "../Header";
 import NewCommentModal from "../NewCommentModal";
+import { SummaryComment } from "../SummaryComment";
 
 
 export function Comment() {
-  const { token } = useParams<{ token?: string }>();
+  const { token } = useParams<{ token: string }>();
   const [newCommentModalOpen, setNewCommentModalOpen] = useState(false);
   const handleOpenNewCommentModal = () => setNewCommentModalOpen(true);
   const handleCloseNewCommentModal = () => setNewCommentModalOpen(false);
 
-  const [comment, setComment] = useState([]);
-  useEffect(() => {
-    api({
-      method: 'post',
-      url: '/comment',
-      data: {
-        post_id: token
-      }
-    }).then((reponse) => setComment(reponse.data));
-  }, []);
+  const [editCommentModalOpen, setEditCommentModalOpen] = useState(false);
+  const [commentId, setCommentId] = useState("");
+  const handleOpenEditCommentModal = () => setEditCommentModalOpen(true);
+  const handleCloseEditCommentModal = () => setEditCommentModalOpen(false);
+  const handleEditCommentModal = (id: string) => {
+    setCommentId(id);
+    handleOpenEditCommentModal()
+  }
+
 
   return (
     <>
       <Header onOpenNewPostModal={handleOpenNewCommentModal} title={"Criar novo Comentario"} />
-      <NewCommentModal open={newCommentModalOpen} handleClose={handleCloseNewCommentModal} />
+      <SummaryComment openEditModal={handleEditCommentModal} token={token as string} />
+      <NewCommentModal open={newCommentModalOpen} handleClose={handleCloseNewCommentModal} token={token as string} />
+      <EditedCommentModal handleClose={handleCloseEditCommentModal} id={commentId} open={editCommentModalOpen} />
     </>
-
   );
 }
 

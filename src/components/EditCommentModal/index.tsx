@@ -24,27 +24,24 @@ interface modalProps {
   id: string;
 }
 
-export default function EditedPostModal({ open, handleClose, id }: modalProps) {
-  const [nome_post, setNome_post] = useState("");
-  const [body_post, setBody_post] = useState("");
+export default function EditedCommentModal({ open, handleClose, id }: modalProps) {
+  const [comment, setComment] = useState("");
 
 
-  async function handleEditPost(event: FormEvent) {
+  async function handleEditComment(event: FormEvent) {
     event.preventDefault();
 
 
     api({
       method: 'put',
-      url: '/post',
+      url: '/comment',
       data: {
         id: id,
-        name: nome_post,
-        body: body_post
+        comment: comment,
       }
     }).then();
 
-    setNome_post('');
-    setBody_post('');
+    setComment('');
     handleClose();
   }
   return (
@@ -63,18 +60,13 @@ export default function EditedPostModal({ open, handleClose, id }: modalProps) {
           >
             <img src={closeImg} alt="Close" />
           </button>
-          <Title>Atualizar post</Title>
+          <Title>Atualizar Comentario</Title>
 
-          <Container onSubmit={handleEditPost}>
+          <Container onSubmit={handleEditComment}>
             <input
-              placeholder="Nome do post"
-              value={nome_post}
-              onChange={(event) => setNome_post(event.target.value)}
-            ></input>
-            <input
-              placeholder="corpo do post"
-              value={body_post}
-              onChange={(event) => setBody_post(event.target.value)}
+              placeholder="Comentario"
+              value={comment}
+              onChange={(event) => setComment(event.target.value)}
             ></input>
             <button type="submit">Atualizar</button>
           </Container>

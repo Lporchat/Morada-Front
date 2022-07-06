@@ -21,9 +21,10 @@ const style = {
 interface modalProps {
   open: boolean;
   handleClose: () => void;
+  token: string;
 }
 
-export default function NewCommentModal({ open, handleClose }: modalProps) {
+export default function NewCommentModal({ open, handleClose, token }: modalProps) {
   const [nome_Comment, setNome_Comment] = useState("");
   const [user_Comment, setUser_Comment] = useState("");
 
@@ -33,9 +34,9 @@ export default function NewCommentModal({ open, handleClose }: modalProps) {
 
     api({
       method: 'post',
-      url: '/post/create',
+      url: '/comment/create',
       data: {
-        post_id: "",
+        post_id: token,
         comment: nome_Comment,
         name_user: user_Comment
       }
@@ -62,18 +63,19 @@ export default function NewCommentModal({ open, handleClose }: modalProps) {
           >
             <img src={closeImg} alt="Close" />
           </button>
-          <Title>Cadastra post</Title>
+          <Title>Cadastra Novo Comentario</Title>
 
           <Container onSubmit={handleCreateNewComment}>
             <input
-              placeholder="Nome do post"
-              value={nome_Comment}
-              onChange={(event) => setNome_Comment(event.target.value)}
-            ></input>
-            <input
-              placeholder="corpo do post"
+              placeholder="Nome do Usuario"
               value={user_Comment}
               onChange={(event) => setUser_Comment(event.target.value)}
+            ></input>
+            <input
+              placeholder="Comentario"
+              value={nome_Comment}
+              onChange={(event) => setNome_Comment(event.target.value)}
+
             ></input>
             <button type="submit">Cadastrar</button>
           </Container>
