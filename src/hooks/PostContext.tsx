@@ -40,7 +40,9 @@ export function PostProvider({ children }: PostProviderProps) {
       url: '/post/create',
       data: post
     });
-    setPosts([...posts, response.data])
+    const newPost: Post = response.data;
+    newPost.likes = 0
+    setPosts([...posts, newPost])
   }
 
   async function deletePost(id: string) {

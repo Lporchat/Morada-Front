@@ -1,5 +1,6 @@
 
 import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 import logoImg from "../../assets/logo.png";
 import { Container, Content } from "./styles";
 
@@ -12,7 +13,9 @@ export function Header({ onOpenNewPostModal, title }: HeaderProps) {
   return (
     <Container>
       <Content>
-        <img src={logoImg} alt="Grupo Morada" />
+        <Link to={"/"}>
+          <img src={logoImg} alt="Grupo Morada" />
+        </Link>
         <Button onClick={onOpenNewPostModal} variant="contained" color="primary">{title}</Button>
       </Content>
     </Container>
