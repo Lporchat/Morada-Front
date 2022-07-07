@@ -1,6 +1,6 @@
 
 import { useContext } from "react";
-import { PostContext } from "../../PostContext";
+import { PostContext } from "../../hooks/PostContext";
 import { Card } from "../Card";
 
 import { Container } from "./styles";

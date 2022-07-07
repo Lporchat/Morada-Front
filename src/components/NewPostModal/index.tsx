@@ -5,7 +5,7 @@ import Modal from '@mui/material/Modal';
 import { FormEvent, useState, useContext } from 'react';
 import { Title, Container } from './styles';
 import { api } from '../../services/api';
-import { PostContext } from '../../PostContext';
+import { PostContext } from '../../hooks/PostContext';
 
 
 const style = {

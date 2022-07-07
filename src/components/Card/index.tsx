@@ -6,7 +6,7 @@ import deleteImg from "../../assets/delete.svg"
 import { api } from "../../services/api";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { PostContext } from "../../PostContext";
+import { PostContext } from "../../hooks/PostContext";
 
 interface Iprops {
   id: string;

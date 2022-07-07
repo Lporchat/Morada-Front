@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { PostContext, PostProvider } from "../../PostContext";
+import { PostContext, PostProvider } from "../../hooks/PostContext";
 
 import EditedPostModal from "../EditPostModal";
 import { Header } from "../Header";
