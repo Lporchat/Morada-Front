@@ -2,9 +2,10 @@
 import Box from '@mui/material/Box';
 import closeImg from "../../assets/close.svg";
 import Modal from '@mui/material/Modal';
-import { FormEvent, useState } from 'react';
+import { Dispatch, FormEvent, SetStateAction, useState } from 'react';
 import { Title, Container } from './styles';
 import { api } from '../../services/api';
+
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -21,14 +22,18 @@ const style = {
 interface modalProps {
   open: boolean;
   handleClose: () => void;
+  allPost: string[];
+  setPosts: any
 }
 
-export default function NewPostModal({ open, handleClose }: modalProps) {
+export default function NewPostModal({ open, handleClose, allPost, setPosts }: modalProps) {
   const [nome_post, setNome_post] = useState("");
   const [body_post, setBody_post] = useState("");
 
   async function handleCreateNewPost(event: FormEvent) {
     event.preventDefault();
+    let post;
+
 
 
     api({
@@ -36,13 +41,25 @@ export default function NewPostModal({ open, handleClose }: modalProps) {
       url: '/post/create',
       data: {
         name: nome_post,
-        body: "body_post"
+        body: body_post
       }
-    }).then();
+    }).then((response => {
+      post = {
+        id: response.data["id"],
+        name: response.data["name"],
+        body: response.data["body"]
+      }
+      
+      allPost.push(post as never);
+
+    }));
+
+
 
     setNome_post('');
     setBody_post('');
     handleClose();
+    setPosts(allPost);
   }
   return (
     <div>

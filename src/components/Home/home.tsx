@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { PostContext, PostProvider } from "../../PostContext";
+
 import EditedPostModal from "../EditPostModal";
 import { Header } from "../Header";
 import NewPostModal from "../NewPostModal";
 
 import { Summary } from "../Summary";
-
 
 
 export function Home() {
@@ -21,15 +22,15 @@ export function Home() {
     handleOpenEditedPostModal();
   };
 
-
+  const [posts, setPosts] = useState<string[]>([]);
 
   return (
-    <>
+    <PostProvider>
       <Header onOpenNewPostModal={handleOpenNewPostModal} title={"Criar novo post"} />
-      <Summary openEditModal={handleEditedPostModal} />
+      <Summary openEditModal={handleEditedPostModal}/>
 
       <EditedPostModal open={editedPostModalOpen} handleClose={handleCloseEditedPostModal} id={postId} />
-      <NewPostModal open={newPostModalOpen} handleClose={handleCloseNewPostModal} />
-    </>
+      <NewPostModal open={newPostModalOpen} handleClose={handleCloseNewPostModal} allPost={posts} setPosts={setPosts} />
+    </PostProvider>
   );
 }

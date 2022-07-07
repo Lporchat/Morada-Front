@@ -1,27 +1,23 @@
-import { useEffect, useState } from "react";
-import { api } from "../../services/api";
+
+import { useContext } from "react";
+import { PostContext } from "../../PostContext";
 import { Card } from "../Card";
 
 import { Container } from "./styles";
 
 interface SumarryProps {
   openEditModal: (id: string) => void;
-
 }
 
-export function Summary({ openEditModal,  }: SumarryProps) {
-  const [posts, setposts] = useState([]);
-
-  useEffect(() => {
-    api.get("post").then((response) => setposts(response.data));
-  }, []);
-
+export function Summary({ openEditModal }: SumarryProps) {
+  const data = useContext(PostContext);
+  console.log(data)
   return (
     <>
       <Container>
-        {posts.map((posts) => {
-          return <Card key={posts["id"]} id={posts["id"]} body={posts["body"]} nome={posts["name"]} like={posts["likes"]} onRequestEditedOpen={openEditModal}
-            />;
+        {data.map((data) => {
+          return <Card key={data["id"]} id={data["id"]} body={data["body"]} nome={data["name"]} like={data["likes"]} onRequestEditedOpen={openEditModal}
+          />;
         })}
 
       </Container>
