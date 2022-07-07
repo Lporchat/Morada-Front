@@ -2,9 +2,10 @@
 import Box from '@mui/material/Box';
 import closeImg from "../../assets/close.svg";
 import Modal from '@mui/material/Modal';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import { Title, Container } from './styles';
 import { api } from '../../services/api';
+import { PostContext } from '../../PostContext';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -25,6 +26,7 @@ interface modalProps {
 }
 
 export default function EditedPostModal({ open, handleClose, id }: modalProps) {
+  const { editPost } = useContext(PostContext)
   const [nome_post, setNome_post] = useState("");
   const [body_post, setBody_post] = useState("");
 
@@ -33,15 +35,8 @@ export default function EditedPostModal({ open, handleClose, id }: modalProps) {
     event.preventDefault();
 
 
-    api({
-      method: 'put',
-      url: '/post',
-      data: {
-        id: id,
-        name: nome_post,
-        body: body_post
-      }
-    }).then();
+    await editPost({ name: nome_post, body: body_post, id: id, });
+
 
     setNome_post('');
     setBody_post('');

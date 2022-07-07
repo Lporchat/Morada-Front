@@ -4,8 +4,9 @@ import likeImg from "../../assets/like.svg"
 import editImg from "../../assets/edit.svg"
 import deleteImg from "../../assets/delete.svg"
 import { api } from "../../services/api";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { PostContext } from "../../PostContext";
 
 interface Iprops {
   id: string;
@@ -18,6 +19,7 @@ interface Iprops {
 export function Card({ id, nome, body, like, onRequestEditedOpen }: Iprops) {
   const [deslike, setDeslike] = useState(false);
   const [likes, setLikes] = useState(like);
+  const { deletePost } = useContext(PostContext)
 
   function likePost() {
     api({
@@ -45,14 +47,8 @@ export function Card({ id, nome, body, like, onRequestEditedOpen }: Iprops) {
     });
   }
 
-  function deletePost() {
-    api({
-      method: 'delete',
-      url: '/post',
-      data: {
-        id: id
-      }
-    }).then();
+  async function delPost() {
+    await deletePost(id);
   }
 
   function editedPost() {
@@ -80,7 +76,7 @@ export function Card({ id, nome, body, like, onRequestEditedOpen }: Iprops) {
         <button onClick={editedPost}>
           <img src={editImg} alt="imagem de edição" />
         </button>
-        <button onClick={deletePost}>
+        <button onClick={delPost}>
           <img src={deleteImg} alt="imagem de deleção" />
         </button>
       </div>

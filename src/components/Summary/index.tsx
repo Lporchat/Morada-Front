@@ -10,13 +10,13 @@ interface SumarryProps {
 }
 
 export function Summary({ openEditModal }: SumarryProps) {
-  const data = useContext(PostContext);
-  console.log(data)
+  const { posts } = useContext(PostContext);
+
   return (
     <>
       <Container>
-        {data.map((data) => {
-          return <Card key={data["id"]} id={data["id"]} body={data["body"]} nome={data["name"]} like={data["likes"]} onRequestEditedOpen={openEditModal}
+        {posts.map((posts) => {
+          return <Card key={posts["id"]} id={posts["id"]} body={posts["body"]} nome={posts["name"]} like={posts["likes"]} onRequestEditedOpen={openEditModal}
           />;
         })}
 
