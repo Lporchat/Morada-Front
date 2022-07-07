@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { CommentContext } from "../../hooks/CommentContext";
 import { api } from "../../services/api";
 import { CardComment } from "../CardComment";
 
@@ -6,33 +7,25 @@ import { Container } from "./styles";
 
 interface SumarryProps {
   openEditModal: (id: string) => void;
-  token: string;
-
 }
 
-export function SummaryComment({ openEditModal, token }: SumarryProps) {
+export function SummaryComment({ openEditModal }: SumarryProps) {
+  const { comments } = useContext(CommentContext);
+  console.log(comments)
 
-  const [comment, setComment] = useState([]);
-  useEffect(() => {
-    api({
-      method: 'post',
-      url: '/comment',
-      data: {
-        post_id: token
-      }
-    }).then((reponse) => setComment(reponse.data));
-  }, []);
   return (
     <>
       <Container>
-        {comment.map((comment) => {
+        {comments.map((comment) => {
           return <CardComment key={comment["id"]} id={comment["id"]} body={comment["comment"]}
-          nome={comment["name_user"]} post_id={comment["post_id"]} like={comment["likes"]} onRequestEditedOpen={openEditModal}
+            nome={comment["name_user"]} onRequestEditedOpen={openEditModal}
           />;
         })}
-
       </Container>
 
     </>
   );
 }
+
+
+

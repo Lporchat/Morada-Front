@@ -1,29 +1,23 @@
-import { Container} from "./styles";
+import { Container } from "./styles";
 import editImg from "../../assets/edit.svg"
 import deleteImg from "../../assets/delete.svg"
 import { api } from "../../services/api";
+import { CommentContext } from "../../hooks/CommentContext";
+import { useContext } from "react";
 
 
 interface Iprops {
   id: string;
   nome: string;
   body: string;
-  post_id: string;
-  like: number;
   onRequestEditedOpen: (id: string) => void,
 }
 
-export function CardComment({ id, nome, body, post_id, like, onRequestEditedOpen }: Iprops) {
-
+export function CardComment({ id, nome, body, onRequestEditedOpen }: Iprops) {
+  const { deleteComment } = useContext(CommentContext);
 
   function deletePost() {
-    api({
-      method: 'delete',
-      url: '/comment',
-      data: {
-        id: id
-      }
-    }).then();
+    deleteComment(id);
   }
 
   function editedPost() {

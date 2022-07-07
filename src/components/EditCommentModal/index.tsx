@@ -2,9 +2,10 @@
 import Box from '@mui/material/Box';
 import closeImg from "../../assets/close.svg";
 import Modal from '@mui/material/Modal';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import { Title, Container } from './styles';
 import { api } from '../../services/api';
+import { CommentContext } from '../../hooks/CommentContext';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -25,21 +26,14 @@ interface modalProps {
 }
 
 export default function EditedCommentModal({ open, handleClose, id }: modalProps) {
+  const { editComment } = useContext(CommentContext);
   const [comment, setComment] = useState("");
 
 
   async function handleEditComment(event: FormEvent) {
     event.preventDefault();
 
-
-    api({
-      method: 'put',
-      url: '/comment',
-      data: {
-        id: id,
-        comment: comment,
-      }
-    }).then();
+    editComment({ comment, id })
 
     setComment('');
     handleClose();

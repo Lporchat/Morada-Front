@@ -2,9 +2,10 @@
 import Box from '@mui/material/Box';
 import closeImg from "../../assets/close.svg";
 import Modal from '@mui/material/Modal';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import { Title, Container } from './styles';
 import { api } from '../../services/api';
+import { CommentContext } from '../../hooks/CommentContext';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -25,23 +26,15 @@ interface modalProps {
 }
 
 export default function NewCommentModal({ open, handleClose, token }: modalProps) {
+  const { createComment } = useContext(CommentContext)
+
   const [nome_Comment, setNome_Comment] = useState("");
   const [user_Comment, setUser_Comment] = useState("");
 
   async function handleCreateNewComment(event: FormEvent) {
     event.preventDefault();
 
-
-    api({
-      method: 'post',
-      url: '/comment/create',
-      data: {
-        post_id: token,
-        comment: nome_Comment,
-        name_user: user_Comment
-      }
-    }).then();
-
+    createComment({ comment: nome_Comment, name_user: user_Comment, post_id: token })
 
     setNome_Comment('');
     setUser_Comment('');
